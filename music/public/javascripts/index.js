@@ -6,7 +6,7 @@ function $(s){
 
 //动态获取歌曲名
 var lis = $("#list li");
-var size =128;
+var size =64;
 var box =$("#box")[0];
 var height,width;
 var canvas = document.createElement("canvas");
@@ -44,11 +44,14 @@ function getDots(){
 	for(var i = 0;i<size;i++){
 		var x = random(0,width);
 		var y = random(0,height);
-		var color = "rgb("+random(100, 250)+","+random(50, 250)+","+random(50, 100)+")";
+		var color = "rgba("+random(100, 250)+","+random(50, 250)+","+random(50, 100)+",0)";
 		Dots.push({
 			x:x,
 			y:y,
-			color:color
+			dx:random(0.5,1.5),
+			px:random(10,40),
+			color:color,
+			cap:0
 		});
 	}
 }
@@ -72,15 +75,27 @@ window.onresize = resize;
 function draw(arr){
 	ctx.clearRect(0,0,width,height);
 	var w = width/size;
+	var cw = w * 0.6
+	var capH = cw>10? 10:cw;
+
 	ctx.fillStyle = line;
 	for(var i=0;i<size;i++){
+		var o = Dots[i];
 		if(draw.type=="column"){
 		var h = arr[i]/256 * height;
-		ctx.fillRect(w*i,height-h,w*0.6,h);
-		}else if(draw.type =="dot"){
+		ctx.fillRect(w*i,height-h,cw,h);
+		ctx.fillRect(w*i,height-(o.cap+capH),cw,capH);
+		o.cap--;
+		if(o.cap<0){
+			o.cap=0;
+		}
+		if (h>0&&o.cap<h+40) {
+			o.cap = h+40 > height-capH?height - capH:h+40;
+		}
+	}else if(draw.type =="dot"){
 			ctx.beginPath();
-			var o = Dots[i];
-			var r = arr[i]/256*70;
+			
+			var r =10+ arr[i]/256*(height>width?width:height)/5;
 			ctx.arc(o.x,o.y,r,0,Math.PI*2,true);
 			// ctx.strokeStyle="#fff";
 			// ctx.stroke();
@@ -89,6 +104,10 @@ function draw(arr){
 			g.addColorStop(1,o.color);
 			ctx.fillStyle=g;
 			ctx.fill();
+			o.x+= o.dx;
+			o.x = o.x>width? 0:o.x;
+			
+
 		}
 	}
 }
