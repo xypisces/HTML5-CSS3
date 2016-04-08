@@ -55,3 +55,15 @@ header h1{
 	left: 220px;
 	border:solid #fff 1px;
 }
+.types li{
+	display: inline-block;
+	border: solid #fff 1px;
+	height: 30px;
+	line-height: 30px;
+	width: 70px;
+	margin-bottom: 10px;
+}
+.selected{
+	background-color: #fff;
+	color: black;
+}
