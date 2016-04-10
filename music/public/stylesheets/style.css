@@ -53,10 +53,11 @@ header h1{
 	color: green;
 }
 .right{
-	top: 170px;
-	right: 10px;
-	bottom: 10px;
-	left: calc(15% + 20px);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
 	// border:solid #fff 1px;
 }
 .types li{
@@ -90,7 +91,7 @@ header h1{
 	line-height: 16px;
 	width: 40px;
 	}
-	.left,.right{
+	.left{
 		top:100px;
 	}
 }

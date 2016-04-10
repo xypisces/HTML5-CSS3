@@ -92,9 +92,8 @@ function draw(arr){
 		if (h>0&&o.cap<h+40) {
 			o.cap = h+40 > height-capH?height - capH:h+40;
 		}
-	}else if(draw.type =="dot"){
-			ctx.beginPath();
-			
+	}else if(draw.type =="dot"){		
+			ctx.beginPath();			
 			var r =10+ arr[i]/256*(height>width?width:height)/5;
 			ctx.arc(o.x,o.y,r,0,Math.PI*2,true);
 			// ctx.strokeStyle="#fff";
