@@ -1,5 +1,136 @@
 @charset "utf-8";
 
-body{
-	background-color: black;
+
+
+//less变量  使用@ 
+
+@test-width:300px;
+@test-bg:yellow;
+
+.box{
+	width:@test-width;
+	height: @test-width;
+	background: @test-bg;
+
+	.border;
+}
+
+//混合
+
+.border{
+	border: solid 10px #fff;
+}
+.box2{
+	.box;
+	margin-left: 200px;
+}
+
+// 混合参数
+
+.border-2(@border-width){
+	border: solid yellow @border-width;
+}
+.test-hunhe{
+	.border-2(30px);
+}
+
+//混合默认参数
+.border-3(@border-width:10px){
+	border: solid green @border-width;
+}
+.test-hunhe3{
+	.border-3();
+}
+
+//例子
+
+.border-radius(@radius:5px){
+	-webkit-border-radius:@radius;
+	-moz-border-radius:@radius;
+	border-radius:@radius;
+}
+.radius-test{
+	width: 300px;
+	height: 100px;
+	background-color: green;
+	.border-radius(20px);
+}
+
+//匹配
+
+// .sanjiao{
+// 	width: 0;
+// 	height: 0;
+// 	overflow: hidden;
+// 	border-width: 10px;
+// 	border-color:   transparent  red transparent  transparent;
+// 	border-style: dashed  solid  dashed dashed;
+// }
+
+.triangele(@_,@w:5px,@c:#eee){
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.triangele(top,@w:5px,@c:#eee){
+	border-width: @w;
+	border-color: @c transparent  transparent  transparent;
+	border-style:  solid dashed   dashed dashed;
+}
+.triangele(left,@w:5px,@c:#eee){
+	border-width: @w;
+	border-color: transparent  transparent  transparent @c;
+	border-style: dashed   dashed dashed solid;
+}
+.triangele(right,@w:5px,@c:#eee){
+	border-width: @w;
+	border-color: transparent  @c transparent  transparent;
+	border-style: dashed  solid dashed dashed  ;
+}
+.triangele(bottom,@w:5px,@c:#eee){
+	border-width: @w;
+	border-color: transparent  transparent @c transparent;
+	border-style: dashed    dashed solid dashed;
+}
+.sanjiao{
+	.triangele(right,100px,blue);
+}
+
+//运算
+
+//嵌套
+/* 
+.list{}
+.list li{}
+.list a{}
+.list span{} 
+*/
+ .list{
+	width: 600px;
+	margin: 30px auto;
+	padding: 5px;
+	list-style: none;
+	li{
+		height: 30px;
+		line-height: 30px;
+		background-color: #eee;
+		margin-bottom: 5px;
+		padding: 0 10px;
+	}
+	a{
+		float: left;
+		text-decoration: none;
+		&:hover{
+			color: red;
+		}
+	}
+	span{
+		float: right;
+	}
+ }
+
+//避免编译
+
+.test-3{
+	width: ~'calc(300px - 30px)';
 }
